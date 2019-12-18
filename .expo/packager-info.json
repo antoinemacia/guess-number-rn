@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 65576,
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
   "expoServerNgrokUrl": "https://am-p83.anonymous.number-game-rn.exp.direct",
   "packagerNgrokUrl": "https://packager.am-p83.anonymous.number-game-rn.exp.direct",
-  "ngrokPid": 65586
+  "ngrokPid": 70394
 }

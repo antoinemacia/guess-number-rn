@@ -46,11 +46,10 @@ const GameScreen = props => {
       ]);
       return
     }
-    switch (direction) {
-      case 'LOWER':
-        currentHigh.current = currentGuess;
-      case 'GREATER':
-        currentLow.current = currentGuess;
+    if (direction === 'LOWER') {
+      currentHigh.current = currentGuess;
+    } else {
+      currentLow.current = currentGuess;
     }
     setCurrentGuess(generateRandomBetween(currentLow.current, currentHigh.current, currentGuess))
     setRounds(currentRounds => currentRounds + 1)

@@ -1,14 +1,18 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, Alert } from 'react-native';
-import Card from '../components/Card';
+import { View, StyleSheet, Button, Image } from 'react-native';
+import BodyText from '../components/BodyText'
 
 const GameOverScreen = props => {
 
   return (
     <View style={styles.screen}>
-      <Text>The Game is Over!</Text>
-      <Text>Number of Rounds: {props.roundsNumber}</Text>
-      <Text>Number was: {props.userNumber}</Text>
+      <BodyText>The Game is Over!</BodyText>
+      <Image source={}/>
+      <BodyText>Number of Rounds: {props.roundsNumber}</BodyText>
+      <BodyText>Number was: {props.userNumber}</BodyText>
+      <View style={styles.buttonContainer}>
+        <Button onPress={props.onRestart} title="NEW GAME" />
+      </View>
     </View>
   )
 }

@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Button, Image, Text } from 'react-native';
+import React from 'react';
+import { View, StyleSheet, Image, Text } from 'react-native';
 import BodyText from '../components/BodyText'
 import Colors from '../constants/colors'
+import MainButton from '../components/MainButton'
 
 const GameOverScreen = props => {
 
@@ -18,11 +19,11 @@ const GameOverScreen = props => {
         source={require('../assets/images/success.png')}
         style={styles.image}
         resizeMode="cover"/>
-      <BodyText>Your phone needed <Text style={styles.highlight}>{props.roundsNumber}</Text>
+      <BodyText style={styles.resultText}>Your phone needed <Text style={styles.highlight}>{props.roundsNumber}</Text>
         rounds to guess <Text style={styles.highlight}>{props.userNumber}</Text>
       </BodyText>
       <View style={styles.buttonContainer}>
-        <Button onPress={props.onRestart} title="NEW GAME" />
+        <MainButton onPress={props.onRestart}>NEW GAME</MainButton>
       </View>
     </View>
   )

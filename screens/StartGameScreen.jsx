@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import Card from '../components/Card'
 import Input from '../components/Input'
 import NumberContainer from '../components/NumberContainer'
@@ -47,34 +47,40 @@ const StartGameScreen = ({ onStartGame }) => {
   }
 
   return (
-    // TouchableWithoutFeedback is a iOS specific keyboard trick to allow
-    // Dismissing the keyboard when tapping outside of it
-    <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
-      <View style={styles.screen}>
-        <Text style={styles.title}>Start a new game!</Text>
-        <Card style={styles.inputContainer}>
-          <Text>Select a Number</Text>
-          <Input
-            style={styles.input}
-            blurOnSubmit
-            autoCapitalize="none"
-            autoCorrect={false}
-            keyboardType="number-pad"
-            onChangeText={numberInputHandler}
-            value={enteredValue}
-            maxLength={2}/>
-          <View style={styles.buttons}>
-            <View style={styles.button}>
-              <Button title="Reset" onPress={resetInputHandler} color={Colors.accent}/>
-            </View>
-            <View style={styles.button}>
-              <Button title="Confirm" onPress={confirmInputHandler} color={Colors.primary} />
-            </View>
+    <ScrollView>
+      // KeyboardAvoidingView ensures that the keyboard does not overlay the Input
+      // the text is destinated to (used here for landscape view)
+      <KeyboardAvoidingView behavior="position" keyboardVerticalOffset={30}>
+        // TouchableWithoutFeedback is a iOS specific keyboard trick to allow
+        // Dismissing the keyboard when tapping outside of it
+        <TouchableWithoutFeedback onPress={() => Keyboard.dismiss()}>
+          <View style={styles.screen}>
+            <Text style={styles.title}>Start a new game!</Text>
+            <Card style={styles.inputContainer}>
+              <Text>Select a Number</Text>
+              <Input
+                style={styles.input}
+                blurOnSubmit
+                autoCapitalize="none"
+                autoCorrect={false}
+                keyboardType="number-pad"
+                onChangeText={numberInputHandler}
+                value={enteredValue}
+                maxLength={2}/>
+              <View style={styles.buttons}>
+                <View style={styles.button}>
+                  <Button title="Reset" onPress={resetInputHandler} color={Colors.accent}/>
+                </View>
+                <View style={styles.button}>
+                  <Button title="Confirm" onPress={confirmInputHandler} color={Colors.primary} />
+                </View>
+              </View>
+            </Card>
+            {confirmedOutput}
           </View>
-        </Card>
-        {confirmedOutput}
-      </View>
-    </TouchableWithoutFeedback>
+        </TouchableWithoutFeedback>
+      </KeyboardAvoidingView>
+    </ScrollView>
   )
 }
 

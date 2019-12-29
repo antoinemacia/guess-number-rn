@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Button, TouchableWithoutFeedback, Keyboard, Alert, Dimensions, ScrollView, KeyboardAvoidingView } from 'react-native';
 import Card from '../components/Card'
 import Input from '../components/Input'
@@ -11,6 +11,23 @@ const StartGameScreen = ({ onStartGame }) => {
   const [enteredValue, setEnteredValue] = useState('');
   const [confirmed, setConfirmed] = useState(false);
   const [selectedNumber, setSelectedNumber] = useState();
+  const [buttonWidth, setButtonWidth] = useSate(Dimensions.get('window').width / 4)
+
+  useEffect(() => {
+    // Used to update device width state when device switch from
+    // portrait to landscape
+    const updateLayout = () => {
+      setButtonWidth(Dimensions.get('window').width / 4)
+    }
+    Dimensions.addEventListener('change', updateLayout)
+
+    // This is used as a CLEANUP function to ensure there's only
+    // one event listener (instead of a new one after every re-renders)
+    return () => {
+      Dimensions.removeEventListener('change', updateLayout)
+    }
+  })
+
 
   const numberInputHandler = inputText => {
     setEnteredValue(inputText.replace(/[^0-9]/g, ''))
@@ -68,7 +85,7 @@ const StartGameScreen = ({ onStartGame }) => {
                 value={enteredValue}
                 maxLength={2}/>
               <View style={styles.buttons}>
-                <View style={styles.button}>
+                <View style={{ width: buttonWidth}}>
                   <Button title="Reset" onPress={resetInputHandler} color={Colors.accent}/>
                 </View>
                 <View style={styles.button}>
@@ -111,7 +128,10 @@ const styles = StyleSheet.create({
     // Dimensions API gives you the available width or height
     // for the device in use ( can be use for media query like styling)
     // Can also be used in conditionals to define particular components
-    width: Dimensions.get('window').width / 4
+    // IMPORTANT: If set in the stylesheet, the dimensions will only be calculated once
+    // on app load. To circumvent this, the dimensions needs to be set as state with
+    // an event listener (see example above)
+    // width: buttonWidth
   },
   input: {
     width: 50,

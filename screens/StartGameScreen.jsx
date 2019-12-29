@@ -104,6 +104,7 @@ const styles = StyleSheet.create({
   button: {
     // Dimensions API gives you the available width or height
     // for the device in use ( can be use for media query like styling)
+    // Can also be used in conditionals to define particular components
     width: Dimensions.get('window').width / 4
   },
   input: {
